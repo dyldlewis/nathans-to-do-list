@@ -26,12 +26,6 @@
         return $app['twig']->render('tasks.html.twig', array('tasks' => Task::getAll()));
     });
 
-    // $app->post("/tasks", function() use ($app) {
-    //     $task = new Task($_POST['description']);
-    //     $task->save();
-    //     return $app['twig']->render('tasks.html.twig', array('tasks' => Task::getAll()));
-    // });
-
     $app->post("/tasks", function() use ($app) {
       $description = $_POST['description'];
       $category_id = $_POST['category_id'];
