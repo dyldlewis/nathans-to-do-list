@@ -22,13 +22,14 @@
         <form action='/tasks' method='post'>
             <label for='description'>Task Description</label>
             <input id='description' name='description' type='text'>
+            <label for='date'>Task Due Date</label>
+           <input id='date' name='date' type='text'>
 
             <button type='submit' class='btn-success'>Add task</button>
         </form>
         <form action='/delete_tasks' method='post'>
             <button type='submit' class='btn-info'>Clear</button>
         </form>
-        <img src="./img/now.jpeg" alt="Do it now" />
 
         <p><a href='/'>Home</a></p>
     </div>

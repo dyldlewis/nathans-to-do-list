@@ -36,7 +36,7 @@
 
         function setDueDate($new_due_date)
         {
-            $this->due_date = $new_due_date;
+            $this->due_date = (string) $new_due_date;
         }
 
         function getDueDate()
@@ -46,7 +46,7 @@
 
         function save()
         {
-            $executed = $GLOBALS['DB']->exec("INSERT INTO tasks (description, category_id) VALUES ('{$this->getDescription()}', {$this->getCategoryId()})");
+            $executed = $GLOBALS['DB']->exec("INSERT INTO tasks (description, category_id, due_date) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}, '{$this->getDueDate()}')");
             if ($executed) {
                 $this->id = $GLOBALS['DB']->lastInsertID();
                 return true;
