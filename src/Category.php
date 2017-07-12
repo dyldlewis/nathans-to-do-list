@@ -111,25 +111,7 @@
              }
         }
 
-        function testDeleteCategoryTasks()
-        {
-            //Arrange
-            $name = "Work stuff";
-            $test_category = new Category($name);
-            $test_category->save();
-
-            $description = "Build website";
-            $category_id = $test_category->getId();
-            $test_task = new Task($description, $category_id);
-            $test_task->save();
-
-
-            //Act
-            $test_category->delete();
-
-            //Assert
-            $this->assertEquals([], Task::getAll());
-        }
+        
 
 
     }
