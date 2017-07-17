@@ -4,6 +4,7 @@
         private $description;
         private $due_date;
         private $id;
+        // i can does it right?
 
         function __construct($description, $due_date, $id = null)
         {
