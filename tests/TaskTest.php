@@ -51,7 +51,7 @@
         }
 
 
-        function testGetID()
+        function testGetId()
         {
             //Arrange
             $name = "Home stuff";

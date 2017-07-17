@@ -90,7 +90,7 @@
 
         function update($new_description)
         {
-            $executed = $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_description}' WHERE id = {$this->getId()};");
+            $executed = $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_description}' WHERE id = {$this->getID()};");
             if ($executed) {
                $this->setDescription($new_description);
                return true;
@@ -101,7 +101,7 @@
 
         function addCategory($category)
         {
-            $executed = $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$category->getId()}, {$this->getId()});");
+            $executed = $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$category->getId()}, {$this->getID()});");
             if ($executed) {
                 return true;
             } else {

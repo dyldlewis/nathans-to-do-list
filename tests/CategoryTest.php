@@ -22,7 +22,7 @@
           Task::deleteAll();
         }
 
-        function testGetName()
+        function getIdetName()
         {
             //Arrange
             $name = "Work stuff";
