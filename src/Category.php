@@ -87,16 +87,6 @@
             }
         }
 
-        function delete()
-        {
-            $executed = $GLOBALS['DB']->exec("DELETE FROM categories WHERE id = {$this->getId()};");
-             if (!$executed) {
-                 return true;
-             } else {
-                 return false;
-             }
-        }
-
         function addTask($task)
         {
             $executed = $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$this->getId()}, {$task->getId()});");
@@ -109,22 +99,35 @@
 
         function getTasks()
         {
-            $query = $GLOBALS['DB']->query("SELECT task_id FROM categories_tasks WHERE category_id = {$this->getId()};");
-            $task_ids = $query->fetchAll(PDO::FETCH_ASSOC);
-
+            $returned_tasks = $GLOBALS['DB']->query("SELECT tasks.* FROM categories
+                JOIN categories_tasks ON (categories_tasks.category_id = categories.id)
+                JOIN tasks ON (tasks.id = categories_tasks.task_id)
+                WHERE categories.id = {$this->getId()};");
             $tasks = array();
-            foreach($task_ids as $id) {
-                $task_id = $id['task_id'];
-                $result = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE id = {$task_id};");
-                $returned_task = $result->fetchAll(PDO::FETCH_ASSOC);
-
-                $description = $returned_task[0]['description'];
-                $due_date = $returned_task[0]['due_date'];
-                $id = $returned_task[0]['id'];
+            foreach($returned_tasks as $task) {
+                $description = $task['description'];
+                $id = $task['id'];
+                $due_date = $task['due_date'];
                 $new_task = new Task($description, $due_date, $id);
                 array_push($tasks, $new_task);
             }
-        return $tasks;
+            return $tasks;
         }
+
+        function delete()
+        {
+            $executed = $GLOBALS['DB']->exec("DELETE FROM categories WHERE id = {$this->getId()};");
+             if (!$executed) {
+                 return false;
+             }
+             $executed = $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE category_id = {$this->getId()};");
+             if (!$executed) {
+                 return false;
+             } else {
+                 return true;
+             }
+        }
+
+
     }
 ?>
