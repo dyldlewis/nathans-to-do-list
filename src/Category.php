@@ -106,9 +106,10 @@
             $tasks = array();
             foreach($returned_tasks as $task) {
                 $description = $task['description'];
-                $id = $task['id'];
                 $due_date = $task['due_date'];
-                $new_task = new Task($description, $due_date, $id);
+                $completed = $task['completed'];
+                $id = $task['id'];
+                $new_task = new Task($description, $due_date, $completed, $id);
                 array_push($tasks, $new_task);
             }
             return $tasks;

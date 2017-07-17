@@ -26,7 +26,8 @@
             //Arrange
             $description = "Do dishes.";
             $due_date = "24-13-1521";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
 
             //Act
             $result = $test_task->getDescription();
@@ -40,7 +41,8 @@
             //Arrange
             $description = "Do dishes.";
             $due_date = "32-21-3134";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
 
             //Act
             $test_task->setDescription("Drink coffee.");
@@ -59,9 +61,10 @@
             $test_category->save();
 
             $description = "Wash the dog";
-            $due_date = "";
+            $due_date = "10-12-3456";
+            $completed = false;
             $id = null;
-            $test_task = new Task($description, $due_date, $id);
+            $test_task = new Task($description, $due_date, $completed, $id);
             $test_task->save();
 
             //Act
@@ -80,8 +83,9 @@
 
             $description = "Wash the dog";
             $due_date = "7-23-2014";
+            $completed = false;
             $id = null;
-            $test_task = new Task($description, $due_date, $id);
+            $test_task = new Task($description, $due_date, $completed, $id);
 
             //Act
             $executed = $test_task->save();
@@ -96,18 +100,19 @@
             $name = "Home stuff";
             $test_category = new Category($name);
             $test_category->save();
-            $category_id = $test_category->getId();
 
             $description = "Wash the dog";
             $due_date = "12-23-2345";
+            $completed = false;
             $id = null;
-            $test_task = new Task($description, $due_date, $id);
+            $test_task = new Task($description, $due_date, $completed, $id);
             $test_task->save();
 
             $description_2 = "Water the lawn";
             $due_date_2 = "12-25-2004";
+            $completed_2 = false;
             $id_2 = null;
-            $test_task_2 = new Task($description_2, $due_date_2, $id_2);
+            $test_task_2 = new Task($description_2, $due_date_2, $completed_2, $id_2);
             $test_task_2->save();
 
             //Act
@@ -126,14 +131,16 @@
 
             $description = "Wash the dog";
             $due_date = "12-21-2005";
+            $completed = false;
             $id = null;
-            $test_task = new Task($description, $due_date, $id);
+            $test_task = new Task($description, $due_date, $completed, $id);
             $test_task->save();
 
             $description_2 = "Water the lawn";
             $due_date_2 = "12-21-2305";
+            $completed_2 = false;
             $id_2 = null;
-            $test_task_2 = new Task($description_2, $due_date_2, $id_2);
+            $test_task_2 = new Task($description_2, $due_date_2, $completed_2, $id_2);
             $test_task_2->save();
 
             //Act
@@ -153,14 +160,16 @@
 
             $description = "Wash the dog";
             $due_date = "11-20-2345";
+            $completed = false;
             $id = null;
-            $test_task = new Task($description, $due_date, $id);
+            $test_task = new Task($description, $due_date, $completed, $id);
             $test_task->save();
 
             $description_2 = "Water the lawn";
             $due_date_2 = "10-20-3456";
+            $completed_2 = false;
             $id_2 = null;
-            $test_task_2 = new Task($description_2, $due_date_2, $id_2);
+            $test_task_2 = new Task($description_2, $due_date_2, $completed_2, $id_2);
             $test_task_2->save();
 
             //Act
@@ -175,7 +184,8 @@
             //Arrange
             $description = "Wash the dog";
             $due_date = "01-23-1531";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             $new_description = "Clean the dog";
@@ -192,12 +202,14 @@
             //Arrange
             $description = "Wash the dog";
             $due_date = "09-21-1523";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             $description2 = "Water the lawn";
             $due_date2 = "94-14-5252";
-            $test_task2 = new Task($description2, $due_date2);
+            $completed_2 = false;
+            $test_task2 = new Task($description2, $due_date2, $completed_2);
             $test_task2->save();
 
 
@@ -217,7 +229,8 @@
 
             $description = "File reports";
             $due_date = "08-23-1234";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             //Act
@@ -241,7 +254,8 @@
 
             $description = "File reports";
             $due_date = "12-13-1234";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             //Act
@@ -261,7 +275,8 @@
 
             $description = "File reports";
             $due_date = "04-2-1423";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             //Act

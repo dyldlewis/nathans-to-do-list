@@ -3,14 +3,26 @@
     {
         private $description;
         private $due_date;
+        private $completed;
         private $id;
-        // i can does it right?
 
-        function __construct($description, $due_date, $id = null)
+
+        function __construct($description, $due_date, $completed = false, $id = null)
         {
             $this->description = $description;
-            $this->id = $id;
             $this->due_date = $due_date;
+            $this->completed = $completed;
+            $this->id = $id;
+        }
+
+        function setCompleted($new_completed)
+        {
+            $this->completed = (bool) $new_completed;
+        }
+
+        function getCompleted()
+        {
+            return $this->completed;
         }
 
         function setDescription($new_description)
@@ -56,8 +68,9 @@
             foreach($returned_tasks as $task) {
                 $task_description = $task['description'];
                 $task_due_date = $task['due_date'];
+                $task_completed = $task['completed'];
                 $task_id = $task['id'];
-                $new_task = new Task($task_description, $task_due_date, $task_id);
+                $new_task = new Task($task_description, $task_due_date, $task_completed, $task_id);
                 array_push($tasks, $new_task);
             }
             return $tasks;
@@ -81,9 +94,10 @@
             foreach ($returned_tasks as $task) {
                 $task_description = $task['description'];
                 $task_due_date = $task['due_date'];
+                $task_completed = $task['completed'];
                 $task_id = $task['id'];
                 if ($task_id == $search_id) {
-                    $found_task = new Task($task_description, $task_due_date, $task_id);
+                    $found_task = new Task($task_description, $task_due_date, $task_completed, $task_id);
                 }
             }
             return $found_task;

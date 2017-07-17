@@ -122,15 +122,17 @@
             $test_category->save();
 
             $description = "Email client";
-            $due_date = "";
+            $due_date = "12-23-4456";
+            $completed = false;
             $id = null;
-            $test_task = new Task($description, $due_date);
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             $description2 = "Meet with boss";
             $due_date2 = "94-24-2142";
+            $completed2 = false;
             $id = null;
-            $test_task2 = new Task($description2, $due_date2);
+            $test_task2 = new Task($description2, $due_date2, $completed2);
             $test_task2->save();
 
             //Act
@@ -181,7 +183,8 @@
 
             $description = "File reports";
             $due_date = "04-12-1030";
-            $test_task = new Task($description, $due_date);
+            $completed = false;
+            $test_task = new Task($description, $due_date, $completed);
             $test_task->save();
 
             $test_category->addTask($test_task);
