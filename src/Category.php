@@ -102,7 +102,7 @@
             $returned_tasks = $GLOBALS['DB']->query("SELECT tasks.* FROM categories
                 JOIN categories_tasks ON (categories_tasks.category_id = categories.id)
                 JOIN tasks ON (tasks.id = categories_tasks.task_id)
-                WHERE categories.id = {$this->getId()};");
+                WHERE categories.id = {$this->getId()} ORDER BY due_date;");
             $tasks = array();
             foreach($returned_tasks as $task) {
                 $description = $task['description'];
