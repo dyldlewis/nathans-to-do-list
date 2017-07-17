@@ -9,9 +9,10 @@
         <p>Here are the tasks:</p>
         <ul>
             {% for task in tasks %}
-                <li>{{ task.getDescription }}</li>
+            <li>{{ task.getDescription }} </li>
                 <ul>
                   <li>Due: {{ task.getDueDate }}</li>
+                  <input type="checkbox">Complete<br>
                 </ul>
             {% endfor %}
         </ul>
