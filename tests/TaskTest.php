@@ -21,6 +21,36 @@
             Category::deleteAll();
         }
 
+        function testGetDescription()
+        {
+            //Arrange
+            $description = "Do dishes.";
+            $due_date = "24-13-1521";
+            $test_task = new Task($description, $due_date);
+
+            //Act
+            $result = $test_task->getDescription();
+
+            //Assert
+            $this->assertEquals($description, $result);
+        }
+
+        function testSetDescription()
+        {
+            //Arrange
+            $description = "Do dishes.";
+            $due_date = "32-21-3134";
+            $test_task = new Task($description, $due_date);
+
+            //Act
+            $test_task->setDescription("Drink coffee.");
+            $result = $test_task->getDescription();
+
+            //Assert
+            $this->assertEquals("Drink coffee.", $result);
+        }
+
+
         function testGetID()
         {
             //Arrange
@@ -40,27 +70,6 @@
 
             //Assert
             $this->assertEquals(true, is_numeric($result));
-        }
-
-        function testGetCategoryID()
-        {
-            //Arrange
-            $name = "Home stuff";
-            $test_category = new Category($name);
-            $test_category->save();
-
-            $category_id = $test_category->getId();
-            $description = "Wash the dog";
-            $due_date = "";
-            $id = null;
-            $test_task = new Task($description, $category_id, $id, $due_date);
-            $test_task->save();
-
-            //Act
-            $result = $test_task->getCategoryId();
-
-            //Assert
-            $this->assertEquals($category_id, $result);
         }
 
         function testSave()
@@ -158,5 +167,44 @@
             //Assert
             $this->assertEquals($test_task, $result);
         }
+
+        function testUpdate()
+        {
+            //Arrange
+            $description = "Wash the dog";
+            $due_date = "01-23-1531";
+            $test_task = new Task($description, $due_date);
+            $test_task->save();
+
+            $new_description = "Clean the dog";
+
+            //Act
+            $test_task->update($new_description);
+
+            //Assert
+            $this->assertEquals("Clean the dog", $test_task->getDescription());
+        }
+
+        function test_deleteTask()
+        {
+            //Arrange
+            $description = "Wash the dog";
+            $due_date = "09-21-1523";
+            $test_task = new Task($description, $due_date);
+            $test_task->save();
+
+            $description2 = "Water the lawn";
+            $due_date2 = "94-14-5252";
+            $test_task2 = new Task($description2, $due_date2);
+            $test_task2->save();
+
+
+            //Act
+            $test_task->delete();
+
+            //Assert
+            $this->assertEquals([$test_task2], Task::getAll());
+        }
+
     }
 ?>

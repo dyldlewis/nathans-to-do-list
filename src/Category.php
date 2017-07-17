@@ -52,7 +52,12 @@
 
         static function deleteAll()
         {
-          $GLOBALS['DB']->exec("DELETE FROM categories;");
+          $executed = $GLOBALS['DB']->exec("DELETE FROM categories;");
+          if ($executed) {
+              return true;
+          } else {
+              return false;
+          }
         }
 
         static function find($search_id)
@@ -63,27 +68,12 @@
             $returned_categories->execute();
             foreach($returned_categories as $category) {
                 $category_name = $category['name'];
-                $category_id = $category['id'];
-                if ($category_id == $search_id) {
-                  $found_category = new Category($category_name, $category_id);
+                $id = $category['id'];
+                if ($id == $search_id) {
+                  $found_category = new Category($category_name, $id);
                 }
             }
             return $found_category;
-        }
-
-        function getTasks()
-        {
-            $tasks = array();
-            $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE category_id = {$this->getId()} ORDER BY due_date ASC;");
-            foreach($returned_tasks as $task) {
-                $description = $task['description'];
-                $category_id = $task['category_id'];
-                $task_id = $task['id'];
-                $task_due_date = $task['due_date'];
-                $new_task = new Task($description, $category_id, $task_id, $task_due_date);
-                array_push($tasks, $new_task);
-            }
-            return $tasks;
         }
 
         function update($new_name)
@@ -101,18 +91,40 @@
         {
             $executed = $GLOBALS['DB']->exec("DELETE FROM categories WHERE id = {$this->getId()};");
              if (!$executed) {
-                 return false;
-             }
-             $executed = $GLOBALS['DB']->exec("DELETE FROM tasks WHERE category_id = {$this->getId()};");
-             if (!$executed) {
-                 return false;
-             } else {
                  return true;
+             } else {
+                 return false;
              }
         }
 
-        
+        function addTask($task)
+        {
+            $executed = $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$this->getId()}, {$task->getId()});");
+            if ($executed) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
+        function getTasks()
+        {
+            $query = $GLOBALS['DB']->query("SELECT task_id FROM categories_tasks WHERE category_id = {$this->getId()};");
+            $task_ids = $query->fetchAll(PDO::FETCH_ASSOC);
 
+            $tasks = array();
+            foreach($task_ids as $id) {
+                $task_id = $id['task_id'];
+                $result = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE id = {$task_id};");
+                $returned_task = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $description = $returned_task[0]['description'];
+                $due_date = $returned_task[0]['due_date'];
+                $id = $returned_task[0]['id'];
+                $new_task = new Task($description, $due_date, $id);
+                array_push($tasks, $new_task);
+            }
+        return $tasks;
+        }
     }
 ?>

@@ -121,23 +121,24 @@
             $test_category = new Category($name);
             $test_category->save();
 
-            $test_category_id = $test_category->getId();
-
             $description = "Email client";
             $due_date = "";
             $id = null;
-            $test_task = new Task($description, $test_category_id, $id, $due_date);
+            $test_task = new Task($description, $due_date);
             $test_task->save();
 
-            $description_2 = "Meet with boss";
-            $test_task_2 = new Task($description_2, $test_category_id, $id, $due_date);
-            $test_task_2->save();
+            $description2 = "Meet with boss";
+            $due_date2 = "94-24-2142";
+            $id = null;
+            $test_task2 = new Task($description2, $due_date2);
+            $test_task2->save();
 
             //Act
-            $result = $test_category->getTasks();
+            $test_category->addTask($test_task);
+            $test_category->addTask($test_task2);
 
             //Assert
-            $this->assertEquals([$test_task, $test_task_2], $result);
+            $this->assertEquals($test_category->getTasks(), [$test_task, $test_task2]);
         }
 
         function testUpdate()
@@ -172,25 +173,20 @@
             $this->assertEquals([$test_category_2], Category::getAll());
         }
 
-        function testDeleteCategoryTasks()
+        function testAddTask()
         {
-            //Arrange
-            $name = "Work stuff";
+            $name = "work stuff";
             $test_category = new Category($name);
             $test_category->save();
 
-            $description = "Build website";
-            $due_date = "";
-            $category_id = $test_category->getId();
-            $test_task = new Task($description, $category_id, $id = null, $due_date);
+            $description = "File reports";
+            $due_date = "04-12-1030";
+            $test_task = new Task($description, $due_date);
             $test_task->save();
 
+            $test_category->addTask($test_task);
 
-            //Act
-            $test_category->delete();
-
-            //Assert
-            $this->assertEquals([], Task::getAll());
+            $this->assertEquals($test_category->getTasks(), [$test_task]);
         }
     }
 
